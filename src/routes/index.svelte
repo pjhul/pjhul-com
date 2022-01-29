@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>Home | pjhul.com</title>
+</svelte:head>
+
 <main class="p-6">
   <div class="absolute bottom-6 left-6">
     <ul>
