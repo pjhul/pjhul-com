@@ -131,7 +131,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/adapter-vercel@npm:^1.0.0-next.0":
+"@sveltejs/adapter-vercel@npm:next":
   version: 1.0.0-next.39
   resolution: "@sveltejs/adapter-vercel@npm:1.0.0-next.39"
   dependencies:
@@ -2166,7 +2166,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "pjhul-com@workspace:."
   dependencies:
-    "@sveltejs/adapter-vercel": ^1.0.0-next.0
+    "@sveltejs/adapter-vercel": next
     "@sveltejs/app-utils": ^1.0.0-next.0
     "@sveltejs/kit": ^1.0.0-next.1
     "@typescript-eslint/eslint-plugin": ^5.10.1
