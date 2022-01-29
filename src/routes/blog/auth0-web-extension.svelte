@@ -19,7 +19,7 @@
 
     <p class="max-w-2xl">
       Wanted to write this blog post to quickly explain the new library I've been working on for the past few weeks. I decided to create this library after struggling
-      with getting authentication to work a Chrome extension I've been developing called <a href="https://joinpatchwork.com">Patchwork</a>. With the recent changes made in MV3, most notably changing
+      with getting authentication working in a Chrome extension I've been developing called <a href="https://joinpatchwork.com">Patchwork</a>. With the recent changes made in MV3, most notably changing
       background pages into ephemeral service workers, storing tokens and re-authenticating has become a huge challenge. After running into this over the
       course of my own development, and hoping to avoid having to resort to less desirable methods of storing access tokens like chrome.storage.local<sup><a href="https://developer.chrome.com/docs/extensions/reference/storage/#usage">[1]</a></sup>,
       I decided to write this library. It's primarily aimed at extensions that heavily rely on content scripts, particularly those that need to run on every webpage. I'll first discuss how it works, and then go a bit deeper into some of the limitations
