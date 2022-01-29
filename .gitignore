@@ -10,4 +10,3 @@ node_modules/
 
 # svelte
 .svelte-kit
-.vercel_build_output
