@@ -167,6 +167,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sveltejs/app-utils@npm:^1.0.0-next.0":
+  version: 1.0.0-next.3
+  resolution: "@sveltejs/app-utils@npm:1.0.0-next.3"
+  checksum: 9ee448be196cbec9df0aa4601c39d7193e8434d909daa8fae5da7fccef3e71fe13132b2c16e035629d53007dcec442b68b899d3027c457673dba9ce587a9cd98
+  languageName: node
+  linkType: hard
+
 "@sveltejs/kit@npm:next":
   version: 1.0.0-next.196
   resolution: "@sveltejs/kit@npm:1.0.0-next.196"
@@ -2499,6 +2506,7 @@ fsevents@~2.3.2:
   resolution: "pjhul-com@workspace:."
   dependencies:
     "@sveltejs/adapter-vercel": ^1.0.0-next.0
+    "@sveltejs/app-utils": ^1.0.0-next.0
     "@sveltejs/kit": next
     "@typescript-eslint/eslint-plugin": ^4.31.1
     "@typescript-eslint/parser": ^4.31.1
