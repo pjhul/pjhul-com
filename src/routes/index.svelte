@@ -9,6 +9,7 @@
       <li><a href="/blog">blog</a></li>
       <li><a href="/videos">videos</a></li>
       <li><a href="/math">math</a></li>
+      <li><a href="/origami">origami</a></li>
       <li><span>--</span></li>
       <li><a href="https://www.joinpatchwork.com">patchwork -></a></li>
       <li><a href="https://github.com/pjhul">github -></a></li>
