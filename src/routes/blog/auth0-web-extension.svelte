@@ -55,22 +55,22 @@ Background Script              Content Script                       Content Scri
 | 1. Init Auth  +------------->|  2. Create IFrame   +--------------------------+
 |               |              |                     |                          |
 +---------------+              +---------------------+                          |  Content scripts loads due to "all_frames" = true
-              chrome.tabs.connect                                               |
+              chrome.tabs.sendMessage                                           |
                                                                                 v
 +---------------+                                                   +-----------+-------------+
-|               |             chrome.runtime.connect                |                         |
-| 4. Build URL  |&lt;--------------------------------------------------+ 3. Retrive auth params  |
+|               |            chrome.runtime.sendMessage             |                         |
+| 4. Build URL  |&lt;--------------------------------------------------+ 3. Retrieve auth params  |
 |               |                                                   |                         |
 +-------+-------+                                                   +-------------------------+
         |
         |                                                           +-------------------------+               +-------------------+
-        |                        port.postMessage                   |                         |               |                   |
+        |                                                           |                         |               |                   |
         +---------------------------------------------------------->+ 5. Create Auth0 IFrame  +-------------->+   Perform OAuth   |
                                                                     |                         |               |                   |
                                                                     +-------------------------+               +---------+---------+
                                                                                                                         |
 +---------------+                                                   +-------------------------+                         |
-|               |                port.postMessage                   |                         |                         |
+|               |            chrome.runtime.sendMessage             |                         |                         |
 | 7. Get token  +&lt;--------------------------------------------------+ 6. Return code & state  +&lt;------------------------+
 |               |                                                   |                         |     window.postMessage
 +-------+-------+                                                   +-------------------------+
@@ -104,8 +104,8 @@ Background Script              Content Script                       Content Scri
       </li>
 
       <li>After creating the IFrame, the next step is somewhat strange but I think actually quite clever. Instead of trying to communicate with this newly created IFrame, we wait
-        for a new instance of our content script to be injected into it. One of the requirements for this library to run is our content script must have the "all_frames" attribute set to "true"
-        in the manifest, meaning it will be injected in all frames on a page not just the top level. Upon being injected into this new IFrame, we create a separate connection to our background script using chrome.runtime.connect in order to retrieve our /authorize url.
+        for a new instance of our content script to be injected into it. One of the requirements for this library to run is that our content script must have the "all_frames" attribute set to "true"
+        in the manifest, meaning it will be injected in all frames on a page, not just the top level. Upon being injected into this new IFrame, we create a separate connection to our background script using chrome.runtime.connect in order to retrieve our /authorize url.
       </li>
 
       <li>Our background script builds the /authorize url using our client_id, redirect_uri, etc. in exactly the same way as the normal auth0-spa-js library. This is then passed back to our content script
@@ -170,7 +170,7 @@ Background Script              Content Script                       Content Scri
 
     <h5 class="font-bold">When doesn't this work</h5>
     <p class="max-w-2xl">
-      The biggest limitation of the library right now is in order to retrieve an auth token in the background script, there <i>must</i> be at least one content script currently running. Despite this, I've found this approach to be more than capable of supporting the typical paradigms for extensions. Any extensions that adds in some type of markup to a page and then needs to perform authenticated requests when a user interacts with this markup (e.g. Grammarly, Honey, many others) are easily supported.
+      The biggest limitation of the library right now is in order to retrieve an auth token in the background script, there <i>must</i> be at least one content script currently running. Despite this, I've found this approach to be more than capable of supporting the typical paradigms for extensions. Any extensions that add in some type of markup to a page and need to perform authenticated requests when a user interacts with this markup (e.g. Grammarly, Honey, many others) are easily supported.
       These extensions might send a message to the background script asking for some piece of data (e.g. asking to check a paragraph for errors in the Grammarly example), after which the background script would call getTokenSilently, perform the handshake (i), use the token to query an API, and then return the results back to the content script in a message. This paradigm is by far the most common for web extensions, and following some of the unfortunate changes in MV3, is
       one of the only paradigms that feels somewhat well supported. At the extreme end of this are extensions that need to run on <i>every</i> webpage, as is the case for the one I'm building. and this is where I think this library really shines. Since we already need to have a content script on every webpage, this effectively means that we can retrieve an access token in the background at any time, opening the possibility of doing more async actions in the background script.
     </p>
@@ -218,7 +218,7 @@ Content Script                   Background Script                Your API
       </a>
     </h3>
     <p class="max-w-2xl">
-      A lot of the motivation for this project came from my struggles building Patchwork, which is a Chrome Extension that adds instant messaging/sharing to any webpage (<a href="https://joinpatchwork.com">check it out</a> if you get the chance). I stumbled across countless deadend forum posts and so my hope is that this library will be able to help people who are in that same position I was in. If you have any comments/questions or run into any issues with the library, please raise an issue over at pjhul/auth0-web-extension and I'm
+      A lot of the motivation for this project came from my struggles building Patchwork, which is a Chrome Extension that adds instant messaging/sharing to any webpage (<a href="https://joinpatchwork.com">check it out</a> if you get the chance). I stumbled across countless dead-end forum posts and so my hope is that this library will be able to help people who are in that same position I was in. If you have any comments/questions or run into any issues with the library, please raise an issue over at pjhul/auth0-web-extension and I'm
       more than happy to chat/help out!
     </p>
 
